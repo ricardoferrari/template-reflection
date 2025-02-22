@@ -1,17 +1,28 @@
 <main>
   <h1>How to use templates</h1>
   <p>This app have examples in how to use template reflections and guards</p>
-  <ng-container *ngTemplateOutlet="greet"></ng-container>
-  <hr />
-  <ng-container *ngTemplateOutlet="eng; context: myContext"></ng-container>
-  <hr />
-  <ng-container *ngTemplateOutlet="svk; context: myContext"></ng-container>
-  <hr />
-  <ng-template #greet><span>Hello</span></ng-template>
-  <ng-template #eng let-name
-    ><span>Hello {{ name }}!</span></ng-template
-  >
-  <ng-template #svk let-person="localSk"
-    ><span>Ahoj {{ person }}!</span></ng-template
-  >
+
+
+  @for (item of items; track item.value) {
+    @switch (item.type) {
+      @case ('bold') {
+        <ng-container *ngTemplateOutlet="bold; context: { $implicit: item.name, value: item.value }"></ng-container>
+      }
+      @default {
+        <ng-container *ngTemplateOutlet="italic; context: { $implicit: item.name, value: item.value }"></ng-container>
+      }
+    }
+    <hr />
+  }
+
+  <ng-template #bold let-name let-value="value">
+    <b>Hello {{ name }}!</b>
+    <b>Value {{ value }}!</b>
+  </ng-template>
+
+  <ng-template #italic let-name let-value="value">
+    <em>Hello {{ name }}!</em>
+    <em>Value {{ value }}!</em>
+  </ng-template>
+
 </main>

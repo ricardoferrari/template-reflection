@@ -3,26 +3,24 @@
   <p>This app have examples in how to use template reflections and guards</p>
 
 
-  @for (item of items; track item.value) {
+  @for (item of items; track item.title) {
     @switch (item.type) {
-      @case ('bold') {
-        <ng-container *ngTemplateOutlet="bold; context: { $implicit: item.name, value: item.value }"></ng-container>
+      @case (PostTypes.TEXT) {
+        <ng-container *ngTemplateOutlet="text; context: { $implicit: item.title, value: item.value }"></ng-container>
+      }
+      @case(PostTypes.LINKS) {
+        <app-link-list [content]="item"></app-link-list>
       }
       @default {
-        <ng-container *ngTemplateOutlet="italic; context: { $implicit: item.name, value: item.value }"></ng-container>
+        <ng-container *ngTemplateOutlet="text; context: { $implicit: item.title, value: item.value }"></ng-container>
       }
     }
     <hr />
   }
 
-  <ng-template #bold let-name let-value="value">
-    <b>Hello {{ name }}!</b>
-    <b>Value {{ value }}!</b>
-  </ng-template>
-
-  <ng-template #italic let-name let-value="value">
-    <em>Hello {{ name }}!</em>
-    <em>Value {{ value }}!</em>
+  <ng-template #text let-title let-value="value">
+    <h3>Hello {{ title }}!</h3>
+    <p>Value {{ value }}!</p>
   </ng-template>
 
 </main>

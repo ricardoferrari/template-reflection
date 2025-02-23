@@ -1,0 +1,10 @@
+<h3>Hello {{ title() }}</h3>
+
+<ul>
+  @for (item of items(); track item.title) {
+    <li>
+      <!-- Opens url in a new tab -->
+      <a [href]="item.url" target="_blank">{{ item.title }}</a>
+    </li>
+  }
+</ul>
